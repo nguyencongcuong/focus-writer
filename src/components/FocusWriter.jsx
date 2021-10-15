@@ -1,6 +1,5 @@
-import React from "react";
+import React, {useRef} from "react";
 import {useLocalStorage} from "../hooks/useLocalStorage"
-import Feature from "./Feature"
 import {
 	HiMoon,
 	HiSun,
@@ -10,6 +9,8 @@ function FocusWriter() {
 	const [subject, setSubject] = useLocalStorage("subject", "");
 	const [content, setContent] = useLocalStorage("content", "");
 	const [isDark, setIsDark] = useLocalStorage("isDark", false);
+	
+	const subjectRef = useRef(null)
 	
 	return (
 		<>
@@ -22,32 +23,36 @@ function FocusWriter() {
 					<div className="grid grid-cols-1 lg:grid-cols-3 w-full">
 						<input
 							type="text"
+							placeholder="Subject"
+							ref={subjectRef}
 							value={subject}
 							onChange={(e) => setSubject(e.target.value)}
-							placeholder="Subject"
 							className={`${
 								isDark
-									? "bg-min-700 text-gray-50 border-4 border-gray-400"
+									? "bg-min-800 text-gray-200"
 									: "bg-gray-50"
-							} lg:col-start-2 p-4 w-full outline-none focus:outline-none font-bold rounded-t-2xl border-b-4 transition-all duration-500`}
+							} lg:col-start-2 p-4 w-full outline-none focus:outline-none font-bold text-2xl rounded-t-2xl border-b-4 transition-all`}
 						/>
 						<textarea
 							value={content}
 							onChange={(e) => setContent(e.target.value)}
-							rows={18}
+							rows={16}
 							placeholder="Content"
 							className={`${
 								isDark
-									? "bg-min-700 text-gray-50 border-4 border-gray-400"
+									? "bg-min-800 text-gray-200"
 									: "bg-gray-50"
-							} lg:col-start-2 p-4 w-full outline-none focus:outline-none rounded-b-2xl transition-all duration-500`}
+							} lg:col-start-2 p-4 w-full outline-none focus:outline-none text-xl rounded-b-2xl transition-all`}
 						/>
 					</div>
 				</div>
 				{/* Options */}
 				<div className="flex justify-center items-center p-4">
 					<button
-						onClick={() => setIsDark(!isDark)}
+						onClick={() => {
+							setIsDark(!isDark)
+							subjectRef.current.focus()
+						}}
 						className="text-4xl">
 						{isDark ? (
 							<HiMoon className="text-gray-100"/>
