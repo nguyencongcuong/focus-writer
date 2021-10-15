@@ -1,5 +1,6 @@
 import React, {useRef} from "react";
 import {useLocalStorage} from "../hooks/useLocalStorage"
+
 import {
 	HiMoon,
 	HiSun,
@@ -9,7 +10,6 @@ function FocusWriter() {
 	const [subject, setSubject] = useLocalStorage("subject", "");
 	const [content, setContent] = useLocalStorage("content", "");
 	const [isDark, setIsDark] = useLocalStorage("isDark", false);
-	
 	const subjectRef = useRef(null)
 	
 	return (
@@ -48,6 +48,7 @@ function FocusWriter() {
 				</div>
 				{/* Options */}
 				<div className="flex justify-center items-center p-4">
+					
 					<button
 						onClick={() => {
 							setIsDark(!isDark)
@@ -60,10 +61,10 @@ function FocusWriter() {
 							<HiSun className="text-yellow-500"/>
 						)}
 					</button>
+					
 				</div>
 			</div>
 		</>
 	);
 }
-
 export default FocusWriter;
